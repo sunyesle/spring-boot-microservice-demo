@@ -2,6 +2,7 @@ package com.sunyesle.order_service;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -17,7 +18,13 @@ public class OrderController {
             new Order(5, 2, "Product E"));
 
     @GetMapping
-    public List<Order> getAllOrders() {
+    public List<Order> getAllOrders(@RequestParam(required = false) Integer customerId) {
+        if (customerId != null) {
+            return orders.stream()
+                    .filter(order -> customerId.equals(order.getCustomerId()))
+                    .toList();
+        }
+
         return orders;
     }
 
