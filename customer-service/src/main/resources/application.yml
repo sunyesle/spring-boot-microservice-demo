@@ -1,5 +1,21 @@
 spring:
   application:
     name: customer-service # 마이크로서비스 간 unique ID로 사용
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 10
+        waitDurationInOpenState: 30s
+        failureRateThreshold: 50
+    instances:
+      externalService:
+        baseConfig: default
 server:
   port: 8081
