@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "order-service")
 public interface OrderClient {
-    @GetMapping("/")
+    @GetMapping
     Object getOrdersForCustomer(@RequestParam int customerId);
 }
